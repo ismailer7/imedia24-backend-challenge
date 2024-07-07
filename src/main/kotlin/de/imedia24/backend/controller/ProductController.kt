@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 class ProductController(val productService: ProductServiceImpl) {
 
 
-    @GetMapping(value = ["/imedia", "imedia24", "hello"])
+    @GetMapping(value = ["/imedia", "/imedia24", "/hello"])
     fun helloMedia24(): String {
         return "Hello iMedia24!"
     }

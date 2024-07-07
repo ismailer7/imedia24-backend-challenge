@@ -9,8 +9,14 @@ class ProductMapper(val ratingMapper: RatingMapper) : ObjectMapper<Product, Prod
 
     override fun toDto(e: Product): ProductDto {
         val ratingListDto = ratingMapper.toDtoList(e.ratings)
-        val images = e.images?.split(";")
-        return ProductDto(e.id, e.title, e.subTitle, e.price, e.description, ratingListDto, images)
+        val imageList: List<String>
+        if(e.images == null || e.images!!.isEmpty()) {
+            imageList = listOf()
+        } else {
+            imageList = e.images!!.split(";")
+        }
+
+        return ProductDto(e.id, e.title, e.subTitle, e.price, e.description, ratingListDto, imageList)
     }
 
     override fun toEntity(d: ProductDto): Product {
