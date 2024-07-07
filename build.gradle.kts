@@ -10,6 +10,7 @@ group = "de.imedia24"
 version = "1.0.1-SNAPSHOT"
 
 val mockitoVersion = "3.7.7"
+val swaggerVersion = "2.2.0"
 
 java {
     toolchain {
@@ -26,11 +27,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.mockito:mockito-core:$mockitoVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 }
 
 kotlin {
