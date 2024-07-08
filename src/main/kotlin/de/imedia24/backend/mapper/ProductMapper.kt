@@ -15,8 +15,7 @@ class ProductMapper(val ratingMapper: RatingMapper) : ObjectMapper<Product, Prod
         } else {
             imageList = e.images!!.split(";")
         }
-
-        return ProductDto(e.id, e.title, e.subTitle, e.price, e.description, ratingListDto, imageList)
+        return ProductDto(e.id!!, e.title, e.subTitle, e.price, e.description, ratingListDto, imageList)
     }
 
     override fun toEntity(d: ProductDto): Product {
@@ -33,4 +32,9 @@ class ProductMapper(val ratingMapper: RatingMapper) : ObjectMapper<Product, Prod
         return productEntity
     }
 
+    fun toEntity(d: ProductDto, setId: Boolean): Product {
+        val productEntity = toEntity(d)
+        if (setId) productEntity.id = d.id
+        return productEntity
+    }
 }

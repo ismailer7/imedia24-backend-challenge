@@ -23,11 +23,12 @@ open class CrudProductServiceImpl(private val productRepository: IProductReposit
         val product: Product?
         try {
             product =  productRepository.saveAndFlush(productMapper.toEntity(payload))
+            log.info("product payload $product")
         } catch (ex: Exception) {
             throw ProductServiceException(
-                "exception during inserting new product with id '${payload.id}'", HttpStatus.INTERNAL_SERVER_ERROR.value())
+                "exception during inserting new product with title '${payload.title}'", HttpStatus.INTERNAL_SERVER_ERROR.value())
         }
-       return product.id
+       return product.id!!
     }
 
     override fun read(id: Long): ProductDto {
@@ -40,7 +41,7 @@ open class CrudProductServiceImpl(private val productRepository: IProductReposit
         log.info("updating product with id '${payload.id}'")
         val product: Product?
         try {
-            product = productRepository.saveAndFlush(productMapper.toEntity(payload))
+            product = productRepository.save(productMapper.toEntity(payload, true))
         } catch (ex: Exception) {
             throw ProductServiceException("Unable to Update product with id '${payload.id}'", HttpStatus.INTERNAL_SERVER_ERROR.value())
         }
