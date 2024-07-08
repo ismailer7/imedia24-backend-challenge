@@ -19,7 +19,7 @@ class ProductMapperTest {
         Rating(id = 2, title = "rating2", comment = "comment for rating2", stars = 4),
         Rating(id = 3, title = "rating3", comment = "comment for rating3", stars = 2),
     )
-    private val product: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ratings, images = "uri1;uri2;uri3")
+    private val product: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = listOf(), images = "")
 
     private val product2: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ratings, images = "uri1;uri2;uri3")
 

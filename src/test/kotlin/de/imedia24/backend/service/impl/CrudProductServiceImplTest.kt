@@ -54,8 +54,10 @@ class CrudProductServiceImplTest {
         Mockito.`when`(productRepository.findById(111)).thenReturn(Optional.of(payload2))
         Mockito.`when`(productMapper.toDto(payload)).thenReturn(payloadDto)
         Mockito.`when`(productMapper.toDto(payload2)).thenReturn(payload2Dto)
+        Mockito.`when`(productMapper.toEntity(payload2Dto, true)).thenReturn(payload2)
         Mockito.`when`(productMapper.toEntity(payload2Dto)).thenReturn(payload2)
         Mockito.`when`(productRepository.saveAndFlush(payload2)).thenReturn(payload2)
+        Mockito.`when`(productRepository.save(payload2)).thenReturn(payload2)
 
     }
 
@@ -110,7 +112,7 @@ class CrudProductServiceImplTest {
 
     @Test
     fun update_withExceptionThrown() {
-        Mockito.`when`(productRepository.saveAndFlush(payload2)).thenThrow(ProductServiceException("exception thrown", 500))
+        Mockito.`when`(productRepository.save(payload2)).thenThrow(ProductServiceException("exception thrown", 500))
         assertFailsWith<ProductServiceException> { service.update(payload2Dto) }
     }
 
