@@ -39,13 +39,14 @@ open class CrudProductServiceImpl(private val productRepository: IProductReposit
 
     override fun update(payload: ProductDto): ProductDto {
         log.info("updating product with id '${payload.id}'")
-        val product: Product?
-        try {
-            product = productRepository.save(productMapper.toEntity(payload, true))
+        val productUpated: Product?
+            try {
+            val product = productRepository.findById(payload.id!!).getOrElse { throw ProductServiceException("Invalid Product to update with id '${payload.id}'", HttpStatus.BAD_REQUEST.value()) }
+            productUpated = productRepository.save(productMapper.patch(product, payload))
         } catch (ex: Exception) {
-            throw ProductServiceException("Unable to Update product with id '${payload.id}'", HttpStatus.INTERNAL_SERVER_ERROR.value())
+            throw ProductServiceException(ex.message.toString(), HttpStatus.INTERNAL_SERVER_ERROR.value())
         }
-        return productMapper.toDto(product)
+        return productMapper.toDto(productUpated)
     }
 
     override fun delete(id: Long): Long {
@@ -53,4 +54,5 @@ open class CrudProductServiceImpl(private val productRepository: IProductReposit
         productRepository.deleteById(id)
         return id
     }
+
 }

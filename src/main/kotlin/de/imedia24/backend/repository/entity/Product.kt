@@ -1,6 +1,7 @@
 package de.imedia24.backend.repository.entity
 
 import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name = "product")
@@ -24,7 +25,7 @@ data class Product (
     var description: String? = "",
 
     @OneToMany(cascade = [CascadeType.ALL])
-    var ratings: List<Rating> = listOf(),
+    var ratings: MutableList<Rating> = ArrayList(),
 
     @Column(name = "images")
     var images: String? = ""

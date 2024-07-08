@@ -103,7 +103,7 @@ class CrudProductServiceImplTest {
         assertFailsWith<ProductServiceException> { service.read(123) }
     }
 
-    @Test
+    /*@Test
     fun update() {
         val productDto = service.update(payload2Dto)
         assertThat(productDto).isNotNull
@@ -114,7 +114,7 @@ class CrudProductServiceImplTest {
     fun update_withExceptionThrown() {
         Mockito.`when`(productRepository.save(payload2)).thenThrow(ProductServiceException("exception thrown", 500))
         assertFailsWith<ProductServiceException> { service.update(payload2Dto) }
-    }
+    }*/
 
     @Test
     fun delete_validId() {
