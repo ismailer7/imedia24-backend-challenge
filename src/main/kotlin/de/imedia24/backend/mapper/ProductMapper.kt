@@ -19,22 +19,21 @@ class ProductMapper(val ratingMapper: RatingMapper) : ObjectMapper<Product, Prod
     }
 
     override fun toEntity(d: ProductDto): Product {
-        val ratingListEntity = ratingMapper.toEntityList(d.ratings)
-        val images: String? = d.images?.joinToString(";")
+        val productEntity = toEntity(d, false)
+        return productEntity
+    }
+
+    override fun toEntity(d: ProductDto, setId: Boolean): Product {
         val productEntity = Product()
+        if (setId) productEntity.id = d.id
+        val ratingListEntity = ratingMapper.toEntityList(d.ratings, setId)
+        val images: String? = d.images?.joinToString(";")
+        productEntity.ratings = ratingListEntity
         productEntity.title = d.title
         productEntity.subTitle = d.subTitle
         productEntity.price = d.price
         productEntity.description = d.description
-        productEntity.ratings = ratingListEntity
         productEntity.images = images
-
-        return productEntity
-    }
-
-    fun toEntity(d: ProductDto, setId: Boolean): Product {
-        val productEntity = toEntity(d)
-        if (setId) productEntity.id = d.id
         return productEntity
     }
 }

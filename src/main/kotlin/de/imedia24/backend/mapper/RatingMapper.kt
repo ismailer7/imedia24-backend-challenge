@@ -13,7 +13,12 @@ class RatingMapper : ObjectMapper<Rating, RatingDto>() {
     }
 
     override fun toEntity(d: RatingDto): Rating {
+        return toEntity(d, false)
+    }
+
+    override fun toEntity(d: RatingDto, setId: Boolean): Rating {
         val rating = Rating()
+        if(setId) rating.id = d.id
         rating.title = d.title
         rating.comment = d.comment
         rating.stars = d.stars
