@@ -4,20 +4,20 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "rating")
-class Rating {
+data class Rating (
 
     @Id
     @Column(name = "rating_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null;
+    var id: Long? = null,
 
     @Column(name = "title")
-    var title: String = "";
+    var title: String = "",
 
     @Column(name = "comment")
-    var comment: String = "";
+    var comment: String = "",
 
     @Column(name = "stars")
-    var stars: Int = 0;
+    var stars: Int = 0
 
-}
+)
