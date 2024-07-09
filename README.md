@@ -2,7 +2,7 @@
 
 This is a coding challenge for creating a Restful API to manage Product.
 
-the technology being used is Spring boot 3, Kotlin and Gradle also Docker for containerization.
+the technology being used are Spring boot 3, Kotlin and Gradle also Docker for containerization.
 
 ## Installation
 
@@ -30,8 +30,8 @@ git checkout develop
 ./gradlew build
 ```
 
-5- After the build is finish a jar is created inside ./build/libs/imedia24-backend-challenge.jar
-so let's create an image for this app for local environment.
+5- After the build is finish an artifact is created under ./build/libs/imedia24-backend-challenge.jar
+so let's create an image for this app to run it against local environment.
 
 ```bash
 docker build --build-arg ENVIRONMENT=local -t imedia24-backend-challenge .
@@ -54,5 +54,5 @@ http://localhost:8080/api/v1/
 
 9- checkout the api at 
 ```bash
-http://localhost:8080/api/v1/
+http://localhost:8080/swagger-ui.html/
 ```
