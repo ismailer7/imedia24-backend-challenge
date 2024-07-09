@@ -30,14 +30,10 @@ class CrudProductServiceImplTest {
     private lateinit var service: CrudProductServiceImpl
 
 
-    private val payload: Product = Product(id = 123L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = listOf(), images = "")
-    private val payloadDto: ProductDto = ProductDto(id = 123L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = listOf(), images = listOf())
+    private val payload: Product = Product(id = 123L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ArrayList(), images = "")
+    private val payloadDto: ProductDto = ProductDto(id = 123L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ArrayList(), images = ArrayList())
 
-    private val ratings: List<Rating> = listOf(
-        Rating(id = 1, title = "rating1", comment = "comment for rating1", stars = 5),
-        Rating(id = 2, title = "rating2", comment = "comment for rating2", stars = 4),
-        Rating(id = 3, title = "rating3", comment = "comment for rating3", stars = 2),
-    )
+    private val ratings: MutableList<Rating> = ArrayList()
 
     private val ratingDtoList: List<RatingDto> = listOf(
         RatingDto(id = 1, title = "rating1", comment = "comment for rating1", stars = 5),
@@ -50,6 +46,11 @@ class CrudProductServiceImplTest {
 
     @BeforeEach
     fun setUp() {
+
+        ratings.add(Rating(id = 1, title = "rating1", comment = "comment for rating1", stars = 5))
+        ratings.add(Rating(id = 2, title = "rating2", comment = "comment for rating2", stars = 4))
+        ratings.add(Rating(id = 3, title = "rating3", comment = "comment for rating3", stars = 2))
+
         Mockito.`when`(productRepository.findById(123)).thenReturn(Optional.of(payload))
         Mockito.`when`(productRepository.findById(111)).thenReturn(Optional.of(payload2))
         Mockito.`when`(productMapper.toDto(payload)).thenReturn(payloadDto)
@@ -102,19 +103,6 @@ class CrudProductServiceImplTest {
         Mockito.`when`(productRepository.findById(123)).thenThrow(ProductServiceException("exception during read", 500))
         assertFailsWith<ProductServiceException> { service.read(123) }
     }
-
-    /*@Test
-    fun update() {
-        val productDto = service.update(payload2Dto)
-        assertThat(productDto).isNotNull
-        assertThat(productDto.id).isEqualTo(payload2Dto.id)
-    }
-
-    @Test
-    fun update_withExceptionThrown() {
-        Mockito.`when`(productRepository.save(payload2)).thenThrow(ProductServiceException("exception thrown", 500))
-        assertFailsWith<ProductServiceException> { service.update(payload2Dto) }
-    }*/
 
     @Test
     fun delete_validId() {

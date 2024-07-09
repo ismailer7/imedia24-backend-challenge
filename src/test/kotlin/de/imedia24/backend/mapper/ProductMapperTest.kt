@@ -5,7 +5,10 @@ import de.imedia24.backend.dto.RatingDto
 import de.imedia24.backend.repository.entity.Product
 import de.imedia24.backend.repository.entity.Rating
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductMapperTest {
 
@@ -14,12 +17,8 @@ class ProductMapperTest {
 
     private val productMapper = ProductMapper(ratingMap)
 
-    private val ratings: List<Rating> = listOf(
-        Rating(id = 1, title = "rating1", comment = "comment for rating1", stars = 5),
-        Rating(id = 2, title = "rating2", comment = "comment for rating2", stars = 4),
-        Rating(id = 3, title = "rating3", comment = "comment for rating3", stars = 2),
-    )
-    private val product: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = listOf(), images = "")
+    private val ratings: MutableList<Rating> = ArrayList()
+    private val product: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ArrayList(), images = "")
 
     private val product2: Product = Product(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ratings, images = "uri1;uri2;uri3")
 
@@ -34,6 +33,13 @@ class ProductMapperTest {
         RatingDto(id = 2, title = "rating2", comment = "comment for rating2", stars = 4),
         RatingDto(id = 3, title = "rating3", comment = "comment for rating3", stars = 2),
     )
+
+    @BeforeEach
+    fun setUp() {
+        ratings.add(Rating(id = 1, title = "rating1", comment = "comment for rating1", stars = 5))
+        ratings.add(Rating(id = 2, title = "rating2", comment = "comment for rating2", stars = 4))
+        ratings.add(Rating(id = 3, title = "rating3", comment = "comment for rating3", stars = 2))
+    }
 
     private val payload2Dto: ProductDto = ProductDto(id = 111L, title = "title", subTitle = "subtitle", price = 123.2, description = "description", ratings = ratingDtoList, images = listOf("uri1", "uri2", "uri3"))
 
